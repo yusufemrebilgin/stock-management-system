@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>StockManager</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+<div class="container d-flex justify-content-center align-items-center min-vh-100" style="color: white;">
+    <div class="row rounded-5 p-3 shadow box-area" style="border: 1px solid rgb(77, 77, 77)">
+        <div class="col-md-6 rounded-4 d-flex align-items-center flex-column left-box"
+             style="background: #193b64; border-radius: 30px !important;">
+            <div class="featured-image mb-3">
+                <img th:src="@{/images/stock.jpg}" class="img-fluid" alt="Inventory Image">
+            </div>
+            <br>
+            <small class="text-white text-wrap text-center" style="font-family: 'Courier New', Courier, monospace;">
+                Manage your inventory by logging in to this platform.
+            </small>
+        </div>
+        <div class="col-md-6 right-box">
+            <div class="row align-items-center">
+                <div class="header-text mb-4">
+                    <h2>Hello, Again!</h2>
+                    <p>We are happy to have you back.</p>
+                </div>
+                <form action="#" th:action="@{/authenticate}" method="POST">
+                    <!--/* Checking for login error */-->
+                    <div th:if="${param.error}" style="img.img-fluid {margin-top: 60px !important;}">
+                        <div class="alert alert-danger" style="padding: 8px">
+                            Invalid username or password
+                        </div>
+                    </div>
+                    <!--/* Checking for logout */-->
+                    <div th:if="${param.logout}">
+                        <div class="alert alert-success" style="padding: 8px">
+                            You have been logged out
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" name="username" class="form-control form-control-lg dark fs-6"
+                               placeholder="Username">
+                    </div>
+                    <div class="input-group mb-1">
+                        <input type="password" name="password" class="form-control form-control-lg dark fs-6"
+                               placeholder="Password">
+                    </div>
+                    <div class="input-group mb-5 d-flex justify-content-between"></div>
+                    <div class="input-group mb-3">
+                        <button type="submit" class="btn btn-lg btn-primary w-100 fs-6">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

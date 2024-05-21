@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>StockManager</title>
+    <link th:replace="~{fragments/common-links.html}">
+</head>
+<body>
+<div class="wrapper">
+    <aside th:replace="~{fragments/common-fragments :: #sidebar}"></aside>
+    <div class="main">
+        <nav th:replace="~{fragments/common-fragments :: nav}"></nav>
+        <main class="content px-3 py-4">
+            <div class="container-fluid">
+                <div class="mb-3">
+                    <br>
+                    <div class="container d-flex justify-content-center align-items-center form" style="padding: 30px">
+                        <div class="row" th:object="${message}">
+                            <div class="col-md-auto" style="text-align: left;">
+                                <h2 th:text="*{title}" class="text-center"></h2>
+                                <hr><br>
+                                <p><strong>From: </strong>
+                                    <span th:text="*{sender.firstName + ' ' + sender.lastName}"></span>
+                                </p>
+                                <br>
+                                <p th:text="*{content}" style="text-indent: 40px"></p>
+                                <br>
+                                <hr>
+                                <small th:text="*{#temporals.format(timestamp, 'yyyy-MM-dd HH:mm:ss')}"></small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script th:replace="~{fragments/common-scripts.html}"></script>
+<script>
+    document.addEventListener("keyup", e => {
+        if (e.key === 'Escape') {
+            window.location.href = "/messages";
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!--/******************************** common nav fragment ********************************/-->
+<nav class="navbar navbar-expand px-4 py-3" th:fragment="nav">
+    <div class="navbar-collapse collapse">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+                <a href="#" data-bs-toggle="dropdown" class="nav-icon pe-md-0">
+                    <img th:src="@{/images/account.png}"
+                         class="avatar img-fluid" alt="">
+                </a>
+                <div class="dropdown-menu dropdown-menu-end rounded text-center">
+                    <a href="#" style="color: #ADB5BD"
+                       onclick="document.getElementById('logout-form').submit();">
+                        <i class="lni lni-exit"></i>
+                        <span>Logout</span>
+                    </a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<!--/****************************** common sidebar fragment ******************************/-->
+<aside id="sidebar" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <div class="d-flex">
+        <button class="toggle-btn" type="button">
+            <i class="lni lni-grid-alt"></i>
+        </button>
+        <div class="sidebar-logo">
+            <a href="#">StockManager</a>
+        </div>
+    </div>
+    <ul class="sidebar-nav">
+        <li class="sidebar-item">
+            <a id="return-home" href="#" th:href="@{/}" class="sidebar-link">
+                <i class="lni lni-home"></i>
+                <span>Home</span>
+            </a>
+        </li>
+        <li class="sidebar-item" sec:authorize="hasRole('ADMIN')">
+            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+               data-bs-target="#admin" aria-expanded="false" aria-controls="admin">
+                <i class="lni lni-protection"></i>
+                <span>Admin</span>
+            </a>
+            <ul id="admin" class="sidebar-dropdown list collapse" data-bs-parent="#sidebar">
+                <li class="sidebar-item">
+                    <a href="#" th:href="@{/admin/users}" class="sidebar-link">Show Users</a>
+                </li>
+            </ul>
+        </li>
+        <li class="sidebar-item">
+            <a href="#" class="sidebar-link collapsed has-dropdown" data-bs-toggle="collapse"
+               data-bs-target="#profile" aria-expanded="false" aria-controls="profile">
+                <i class="lni lni-user"></i>
+                <span>Profile</span>
+            </a>
+            <ul id="profile" class="sidebar-dropdown list collapse" data-bs-parent="#sidebar">
+                <li class="sidebar-item">
+                    <a th:href="@{/change-password}" class="sidebar-link">Change Password</a>
+                </li>
+            </ul>
+        </li>
+        <li class="sidebar-item">
+            <a th:href="@{/messages}" class="sidebar-link">
+                <i class="lni lni-envelope"></i>
+                <span>Messages</span>
+            </a>
+        </li>
+    </ul>
+    <div class="sidebar-footer">
+        <!--/* logout action */-->
+        <form id="logout-form" action="#" th:action="@{/logout}" method="post">
+            <button type="submit" value="Logout" style="display: none;"></button>
+        </form>
+        <a href="#" class="sidebar-link" onclick="document.getElementById('logout-form').submit();">
+            <i class="lni lni-exit"></i>
+            <span>Logout</span>
+        </a>
+    </div>
+</aside>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>StockManager</title>
+    <link th:replace="~{fragments/common-links.html}">
+</head>
+<body>
+<div class="wrapper">
+    <aside th:replace="~{fragments/common-fragments :: #sidebar}"></aside>
+    <div class="main">
+        <nav th:replace="~{fragments/common-fragments :: nav}"></nav>
+        <main class="content px-3 py-4">
+            <div class="container-fluid">
+                <div class="mb-3">
+                    <br>
+                    <div class="container d-flex justify-content-center align-items-center form">
+                        <form id="p-form" action="#" th:action="@{/products/save}" th:object="${product}" method="POST">
+                            <div class="row">
+                                <div class="col-md-auto text-center" style="width: 500px">
+                                    <!--/* hidden form field to handle showUpdateForm */-->
+                                    <input type="hidden" th:field="*{id}">
+                                    <h3 style="margin-top: 30px">Product Form</h3><hr>
+                                    <div class="input-group mb-3">
+                                        <input type="text" th:field="*{name}"
+                                               class="form-control form-control-lg dark fs-6"
+                                               th:classappend="${#fields.hasErrors('name')} ? 'error' : ''"
+                                               th:placeholder="${#fields.hasErrors('name')}
+                                               ? ${#fields.errors('name')[0]}
+                                               : 'Product Name'">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <label class="input-group-text" for="categorySelect">Category</label>
+                                        <select id="categorySelect" class="form-select" th:field="*{category.id}">
+                                            <option th:if="*{category.id == null}" value="-1" selected disabled>Chose...</option>
+                                            <option th:unless="*{category.id == null}" th:value="*{category.id}"
+                                                    th:text="*{category.name}" selected></option>
+                                            <!--/* 'ne' is a not equal operator in thymeleaf */-->
+                                            <option th:each="c: ${categories}" th:if="${c.name ne product.category.name}"
+                                                    th:value="${c.id}" th:text="${c.name}"></option>
+                                        </select>
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="number" th:field="*{quantityInStock}"
+                                               class="form-control form-control-lg dark fs-6"
+                                               th:classappend="${#fields.hasErrors('quantityInStock')} ? 'error' : ''"
+                                               th:placeholder="${#fields.hasErrors('quantityInStock')}
+                                               ? ${#fields.errors('quantityInStock')[0]}
+                                               : 'Quantity'">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <label for="price" class="input-group-text">Cost</label>
+                                        <label for="price" class="input-group-text">$</label>
+                                        <input id="price" type="number" step=".01"
+                                               class="form-control" th:field="*{costPrice}"
+                                               th:classappend="${#fields.hasErrors('costPrice')} ? 'error' : ''"
+                                               th:placeholder="${#fields.hasErrors('costPrice')}
+                                               ? ${#fields.errors('costPrice')[0]}
+                                               : ''">
+                                    </div>
+                                    <br>
+                                    <div class="input-group mb-3 justify-content-md-center">
+                                        <input type="submit" value="Save" class="custom-link">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script th:replace="~{fragments/common-scripts.html}"></script>
+<script>
+    let link = document.getElementById('return-home');
+    document.addEventListener("keyup", e => {
+        if (e.key === 'Escape')
+            link.click();
+    });
+</script>
+
+</body>
+</html>

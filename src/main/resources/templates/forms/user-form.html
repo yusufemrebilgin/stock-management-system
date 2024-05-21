@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>StockManager</title>
+    <link th:replace="~{fragments/common-links.html}">
+</head>
+<body>
+<div class="wrapper">
+    <aside th:replace="~{fragments/common-fragments :: #sidebar}"></aside>
+    <div class="main">
+        <nav th:replace="~{fragments/common-fragments :: nav}"></nav>
+        <main class="content px-3 py-4">
+            <div class="container-fluid">
+                <div class="mb-3">
+                    <br>
+                    <div class="container d-flex justify-content-center align-items-center form">
+                        <form action="#" th:action="@{/admin/users/save}" th:object="${user}" method="POST">
+                            <div class="row">
+                                <div class="col-md-auto text-center" style="width: 500px">
+                                    <h3 style="margin-top: 30px">User Form</h3><hr>
+                                    <div class="input-group mb-3">
+                                        <input type="text" th:field="*{firstName}"
+                                               class="form-control form-control-lg dark fs-6"
+                                               th:classappend="${#fields.hasErrors('firstName')} ? 'error' : ''"
+                                               th:placeholder="${#fields.hasErrors('firstName')}
+                                               ? ${#fields.errors('firstName')[0]}
+                                               : 'First Name'">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="text" th:field="*{lastName}"
+                                               class="form-control form-control-lg dark fs-6"
+                                               th:classappend="${#fields.hasErrors('lastName')} ? 'error' : ''"
+                                               th:placeholder="${#fields.hasErrors('lastName')}
+                                               ? ${#fields.errors('lastName')[0]}
+                                               : 'Last Name'">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="email" th:field="*{email}"
+                                               class="form-control form-control-lg dark fs-6"
+                                               th:classappend="${#fields.hasErrors('email')} ? 'error' : ''"
+                                               th:placeholder="${#fields.hasErrors('email')}
+                                               ? ${#fields.errors('email')[0]}
+                                               : 'Email'">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="text" th:field="*{username}"
+                                               class="form-control form-control-lg dark fs-6"
+                                               th:classappend="${#fields.hasErrors('username')} ? 'error' : ''"
+                                               th:placeholder="${#fields.hasErrors('username')}
+                                               ? ${#fields.errors('username')[0]}
+                                               : 'Username'">
+                                    </div>
+                                    <div class="input-group mb-3">
+                                        <input type="password" th:field="*{password}"
+                                               class="form-control form-control-lg dark fs-6"
+                                               th:classappend="${#fields.hasErrors('password')} ? 'error' : ''"
+                                               th:placeholder="${#fields.hasErrors('password')}
+                                               ? ${#fields.errors('password')[0]}
+                                               : 'Password'">
+                                    </div>
+                                    <br>
+                                    <div class="input-group mb-3 justify-content-md-center">
+                                        <input type="submit" value="Save" class="custom-link">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script th:replace="~{fragments/common-scripts.html}"></script>
+<script>
+    document.addEventListener("keyup", e => {
+        if (e.key === 'Escape') {
+            window.location.href = "/admin/users";
+        }
+    });
+</script>
+
+</body>
+</html>

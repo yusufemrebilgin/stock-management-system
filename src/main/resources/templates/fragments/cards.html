@@ -1,0 +1,69 @@
+<!--/*-------------------------- Dynamic Card Fragment --------------------------*/-->
+<!-- Cards -->
+<div class="row g-3" th:with="stock=${stockStatusDTO}" th:fragment="cards">
+    <!-- Stock Level -->
+    <div class="col-12 col-md-4">
+        <div class="card border-0">
+            <div class="card-body py-4" th:with="level=${stock.occupancyRate}">
+                <h5 class="mb-2 fw-bold">
+                    Stock Level
+                </h5>
+                <p class="mb-2 fw-bold"
+                   th:classappend="${level < 50} ? 'text-success' : (${level < 75} ? 'text-warning':'text-danger')">
+                    <span th:text="${'%' + #numbers.formatDecimal(level, 1, 2, 'COMMA')}"></span>
+                </p>
+                <div class="mb-0" th:with="rate=${stock.occupancyRateChange}">
+                    <span class="badge text-success me-2"
+                          th:classappend="${rate >= 0} ? 'text-success' : 'text-danger'">
+                        <span th:text="${'%' + #numbers.formatDecimal(rate, 1, 2, 'COMMA')}"></span>
+                    </span>
+                    <span class="fw-bold">
+                        Since Last Update
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Number of Products in Stock -->
+    <div class="col-12 col-md-4">
+        <div class="card  border-0">
+            <div class="card-body py-4" th:with="amount=${stock.totalProductAmount}">
+                <h5 class="mb-2 fw-bold">
+                    Number of Products in Stock
+                </h5>
+                <p class="mb-2 fw-bold">
+                    <span th:text="${#numbers.formatInteger(amount, 0, 'POINT')}"></span>
+                </p>
+                <div class="mb-0" th:with="rate=${stock.productAmountChangeRate}">
+                    <span class="badge text-success me-2" th:classappend="${rate >= 0} ? 'text-success':'text-danger'">
+                       <span th:text="${'%' + #numbers.formatDecimal(rate, 1, 2, 'COMMA')}"></span>
+                    </span>
+                    <span class="fw-bold">
+                        Since Last Update
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Total Value of Products -->
+    <div class="col-12 col-md-4 ">
+        <div class="card border-0">
+            <div class="card-body py-4" th:with="value=${stock.totalProductValue}">
+                <h5 class="mb-2 fw-bold">
+                    Total Value of Products in Stock
+                </h5>
+                <p class="mb-2 fw-bold">
+                    <span th:text="${'$' + #numbers.formatDecimal(value, 0, 'POINT', 2, 'COMMA')}"></span>
+                </p>
+                <div class="mb-0" th:with="rate=${stock.totalProductValueChangeRate}">
+                    <span class="badge text-success me-2" th:classappend="${rate >= 0} ? 'text-success':'text-danger'">
+                        <span th:text="${'%' + #numbers.formatDecimal(rate, 1, 2, 'COMMA')}"></span>
+                    </span>
+                    <span class="fw-bold">
+                        Since Last Update
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
