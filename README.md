@@ -58,3 +58,10 @@ Here are some sample users that you can use to log in to the application:
 |----------|----------|
 | admin    | admin123 |
 | user     | user123  |
+
+## Images
+
+<p align="center">
+    <img src="https://github.com/yusufemrebilgin/stock-management-system/blob/main/images/login-page.png">
+    <img src="https://github.com/yusufemrebilgin/stock-management-system/blob/main/images/index-page.png">
+</p>
