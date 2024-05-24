@@ -13,6 +13,7 @@ public class ThymeleafFieldAccessor {
 
     public Object getFieldValue(Object object, String fieldName) {
         try {
+            // If "fieldName" parameter contains more than one field, such as "firstName+lastName"
             if (fieldName.contains("+")) {
                 String[] compositeFields = fieldName.split("\\+");
                 StringBuilder compositeValue = new StringBuilder();
