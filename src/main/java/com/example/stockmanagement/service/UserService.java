@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -56,6 +57,7 @@ public class UserService implements UserDetailsService {
         return false;
     }
 
+    @Transactional
     public void save(User formUser) {
         User user = User.builder()
                 .username(formUser.getUsername())
@@ -72,8 +74,9 @@ public class UserService implements UserDetailsService {
     }
 
     public void deleteById(Long id) {
-        findById(id).setRoles(null);
-        userRepository.deleteById(id);
+        User user = findById(id);
+        user.setRoles(null);
+        userRepository.delete(user);
     }
 
     @Override
