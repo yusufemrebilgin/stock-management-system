@@ -1,11 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" data-bs-theme="dark">
-<head>
-    <meta charset="UTF-8">
-    <title>StockManager</title>
-    <!-- datatable -->
-    <link href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css" rel="stylesheet">
-    <link th:replace="~{fragments/common-links.html}">
+<head th:replace="~{fragments/common-head :: header('StockManager', 'true')}">
+    <title></title>
 </head>
 <body>
 <div class="wrapper">
@@ -36,8 +32,8 @@
                                 </thead>
                                 <tbody>
                                 <tr th:each="message: ${receivedMessages}">
-                                    <td th:text="${message.getSender().firstName + ' ' + message.getSender().lastName}"></td>
-                                    <td th:text="${#temporals.format(message.getTimestamp(), 'yyyy-MM-dd HH:mm:ss')}"></td>
+                                    <td th:text="${message.sender.firstName + ' ' + message.sender.lastName}"></td>
+                                    <td th:text="${#temporals.format(message.timestamp, 'yyyy-MM-dd HH:mm:ss')}"></td>
                                     <td th:if="${message.read}" style="font-size: 20px; text-align: center">
                                         <i class="lni lni-checkmark-circle" style="color: green"></i>
                                     </td>
@@ -71,19 +67,13 @@
         </main>
     </div>
 </div>
-
-<!-- jQuery & DataTable -->
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
 <!--/* Inserting common script fragment */-->
-<script th:replace="~{fragments/common-scripts.html}"></script>
+<script th:replace="~{fragments/common-scripts :: scripts('true')}"></script>
 <script>
     new DataTable('#messages', {
         responsive: true,
         order: [1, 'desc']
     });
 </script>
-
 </body>
 </html>

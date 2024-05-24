@@ -1,10 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>StockManager</title>
-    <link th:replace="~{fragments/common-links.html}">
+<head th:replace="~{fragments/common-head :: header('StockManager', 'false')}">
+    <title></title>
 </head>
 <body>
 <div class="wrapper">
@@ -22,11 +19,9 @@
                                 <hr><br>
                                 <p><strong>From: </strong>
                                     <span th:text="*{sender.firstName + ' ' + sender.lastName}"></span>
-                                </p>
-                                <br>
+                                </p><br>
                                 <p th:text="*{content}" style="text-indent: 40px"></p>
-                                <br>
-                                <hr>
+                                <br><hr>
                                 <small th:text="*{#temporals.format(timestamp, 'yyyy-MM-dd HH:mm:ss')}"></small>
                             </div>
                         </div>
@@ -37,7 +32,7 @@
     </div>
 </div>
 
-<script th:replace="~{fragments/common-scripts.html}"></script>
+<script th:replace="~{fragments/common-scripts :: scripts('false')}"></script>
 <script>
     document.addEventListener("keyup", e => {
         if (e.key === 'Escape') {

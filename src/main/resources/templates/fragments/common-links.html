@@ -1,6 +1,10 @@
-<!-- Line Icons -->
-<link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet"/>
-<!-- Bootstrap 5 -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-<!-- Custom Styles -->
-<link th:href="@{/css/main.css}" href="/static/css/main.css" rel="stylesheet">
+<th:block th:fragment="links(includeDataTable)">
+    <!-- Line Icons -->
+    <link href="https://cdn.lineicons.com/4.0/lineicons.css" rel="stylesheet"/>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <link th:href="@{/css/main.css}" href="/static/css/main.css" rel="stylesheet">
+    <!-- DataTable -->
+    <link th:if="${includeDataTable}" href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css" rel="stylesheet">
+</th:block>

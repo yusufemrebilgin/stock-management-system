@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="dark" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>StockManager</title>
-    <!-- datatable -->
-    <link href="https://cdn.datatables.net/2.0.7/css/dataTables.bootstrap5.css" rel="stylesheet">
-    <link th:replace="~{fragments/common-links.html}">
+<head th:replace="~{fragments/common-head :: header('StockManager', 'true')}">
+    <title></title>
 </head>
 <body>
 <div class="wrapper">
@@ -26,49 +21,7 @@
                     <hr><br>
                     <div class="row justify-content-center">
                         <div class="col-12">
-                            <table id="user-table" class="table table-striped" style="width: 100%">
-                                <thead>
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Created At</th>
-                                    <th></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="user: ${users}">
-                                    <td th:text="${user.username}"></td>
-                                    <td th:text="${user.firstName + ' ' + user.lastName}"></td>
-                                    <td th:text="${user.email}"></td>
-                                    <!--/* -------------------------------------------- */-->
-                                    <td th:if="${user.roles != null}" th:with="role=${user.roles}" >
-                                        <span th:if="${role.size() > 1}">ADMIN</span>
-                                        <span th:unless="${role.size() > 1}">USER</span>
-                                    </td>
-                                    <!--/* -------------------------------------------- */-->
-                                    <td th:text="${#temporals.format(user.createdAt, 'yyyy-MM-dd HH:mm:ss')}"></td>
-                                    <td class="text-center">
-                                        <a th:if="${user.roles.size() < 2}"
-                                           th:href="@{/admin/users/delete(id=${user.id})}"
-                                           onclick="if (!(confirm('Are you sure you want to delete this user?'))) return false">
-                                            <i class="lni lni-trash-can dt-icon"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                </tbody>
-                                <tfoot>
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Created At</th>
-                                    <th></th>
-                                </tr>
-                                </tfoot>
-                            </table>
+                            <table th:replace="~{fragments/common-table :: table(tableId='user-table', headers=${userHeaders}, items=${users}, fields=${userFields}, editUrl='', deleteUrl='/admin/users/delete')}"></table>
                         </div>
                     </div>
                 </div>
@@ -76,13 +29,8 @@
         </main>
     </div>
 </div>
-
-<!-- jQuery & DataTable -->
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap5.js"></script>
 <!--/* Inserting common script fragment */-->
-<script th:replace="~{fragments/common-scripts.html}"></script>
+<script th:replace="~{fragments/common-scripts :: scripts('true')}"></script>
 <script>
     new DataTable('#user-table', {
         responsive: true,

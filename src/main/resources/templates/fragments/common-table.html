@@ -1,0 +1,33 @@
+<div xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+     th:fragment="table(tableId, headers, items, fields, editUrl, deleteUrl)">
+    <table th:id="${tableId}" class="table table-striped" style="width: 100%">
+        <thead>
+        <tr>
+            <th th:each="header : ${headers}" th:text="${header}"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item : ${items}">
+            <td th:each="field : ${fields}" th:text="${fieldAccessor.getFieldValue(item, field)}"></td>
+            <td>
+                <a th:if="${#strings.equals(tableId, 'message-table')}" th:href="@{/messages/read(id=${message.id})}">
+                    <i class="lni lni-information dt-icon"></i>
+                </a>
+                <a th:if="${#strings.equals(tableId, 'product-table')}" th:href="@{${editUrl}(id=${item.id})}">
+                    <i class="lni lni-pencil dt-icon"></i>
+                </a>
+                <a th:href="@{${deleteUrl}(id=${item.id})}" sec:authorize="hasRole('ADMIN')"
+                   onclick="if (!(confirm('Are you sure you want to delete this item?'))) return false">
+                    <i class="lni lni-trash-can dt-icon"></i>
+                </a>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <th th:each="header : ${headers}" th:text="${header}"></th>
+        </tr>
+        </tfoot>
+    </table>
+</div>

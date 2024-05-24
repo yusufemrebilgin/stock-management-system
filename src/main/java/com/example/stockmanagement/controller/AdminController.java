@@ -1,6 +1,8 @@
 package com.example.stockmanagement.controller;
 
+import com.example.stockmanagement.constants.TableConstants;
 import com.example.stockmanagement.entity.user.User;
+import com.example.stockmanagement.helper.ThymeleafFieldAccessor;
 import com.example.stockmanagement.service.UserService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +20,12 @@ import java.util.List;
 public class AdminController {
 
     private final UserService userService;
+    private final ThymeleafFieldAccessor fieldAccessor;
 
     @Autowired
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, ThymeleafFieldAccessor fieldAccessor) {
         this.userService = userService;
+        this.fieldAccessor = fieldAccessor;
     }
 
     @GetMapping
@@ -31,13 +35,21 @@ public class AdminController {
 
         model.addAttribute("users", users);
 
+        // Attributes for dynamic data-table initialization
+        model.addAttribute("fieldAccessor", fieldAccessor);
+        model.addAttribute("userHeaders", TableConstants.USER_HEADERS);
+        model.addAttribute("userFields", TableConstants.USER_FIELDS);
+
         return "admin";
     }
 
     @GetMapping("/register")
     public String showRegisterForm(Model model) {
-        // Creating new user for model attribute to binding form data
-        model.addAttribute("user", new User());
+        log.info("Show register form");
+        if (!model.containsAttribute("user")) {
+            // Creating new user for model attribute to binding form data
+            model.addAttribute("user", new User());
+        }
 
         return "forms/user-form";
     }
@@ -47,8 +59,10 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "forms/user-form";
         }
+
         // Saving user to database
         userService.save(user);
+
         return "redirect:/admin/users";
     }
 
